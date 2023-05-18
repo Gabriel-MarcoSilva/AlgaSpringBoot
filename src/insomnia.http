@@ -1,1 +1,24 @@
 GET http://localhost:8080/client
+
+# GET http://localhost:8080/client/5
+
+# POST http://localhost:8080/client HTTP/1.1
+# content-type: application/json
+
+# {
+#     "email": "gabrielmarkolinosilva14@gmail.com",
+#     "name": "Gabriel",
+#     "fone": "75981425357"
+# }
+
+# PUT http://localhost:8080/client/5 HTTP/1.1
+# content-type: application/json
+
+# {
+#     "email": "gabriel@gmail.com",
+#      "name": "Gabriel",
+#      "telefone": "75981425357"
+# }
+
+
+DELETE http://localhost:8080/client/4 HTTP/1.1
