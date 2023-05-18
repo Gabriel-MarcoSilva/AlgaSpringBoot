@@ -6,8 +6,8 @@ POST http://localhost:8080/client HTTP/1.1
 content-type: application/json
 
 {
-    "email": null,
-    "name": "Gabriel456465465456464646464654646456464645646464564645646464646464646464646464646",
+    "email": "gabrielgmail.com",
+    "name": "Gabriel",
     "fone": "75981425357"
 }
 
