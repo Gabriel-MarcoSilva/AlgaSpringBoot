@@ -11,6 +11,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -40,5 +41,20 @@ public class ClientException extends ResponseEntityExceptionHandler {
         problema.setCampo(campos);
 
         return handleExceptionInternal(ex, problema, headers, status, request);
+    }
+
+    //tratamento de notificação de erro do negocioException
+
+    @ExceptionHandler(NegocioException.class)
+    public ResponseEntity<Object> handleNegocioEntity(NegocioException negocio, WebRequest request){
+        HttpStatus status = HttpStatus.BAD_REQUEST; //error 400
+
+        Problema problema =  new Problema();
+
+        problema.setTitulo(negocio.getMessage());
+        problema.setDatahora(LocalDateTime.now());
+        problema.setStatus(status.value());
+
+        return handleExceptionInternal(negocio, problema, new HttpHeaders(), status, request);
     }
 }

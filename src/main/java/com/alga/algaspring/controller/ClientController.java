@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alga.algaspring.model.ClientModel;
 import com.alga.algaspring.repositories.ClientRepository;
+import com.alga.algaspring.services.CatalogoDomainServices;
 
 @RestController
 @RequestMapping
@@ -30,6 +31,9 @@ public class ClientController {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private CatalogoDomainServices catalogoDomainServices; //utilizado para n usar diretamente o clientRepository, e lá são criadas regraspara utilizar
 
     @GetMapping(value = "/client")
     public List<ClientModel> hello() {
@@ -45,7 +49,8 @@ public class ClientController {
 
     @PostMapping(value = "/client")
     public ClientModel create(@Valid @RequestBody ClientModel client) {
-        return clientRepository.save(client);
+        //return clientRepository.save(client);
+        return catalogoDomainServices.salvar(client);
     }
 
     @PutMapping(value = "/client/{id}")
@@ -53,7 +58,8 @@ public class ClientController {
 
         if (clientRepository.existsById(id)) {
             client.setId(id);
-            return ResponseEntity.ok(clientRepository.save(client));
+            //return ResponseEntity.ok(clientRepository.save(client));
+            return ResponseEntity.ok(catalogoDomainServices.salvar(client));
         }
 
         return ResponseEntity.notFound().build();
@@ -62,7 +68,8 @@ public class ClientController {
     @DeleteMapping(value = "/client/{id}")
     public ClientModel delete(@PathVariable Long id) {
         if (clientRepository.existsById(id)) {
-            clientRepository.deleteById(id);
+            //clientRepository.deleteById(id);
+            catalogoDomainServices.delete(id);
         }
 
         return null;
