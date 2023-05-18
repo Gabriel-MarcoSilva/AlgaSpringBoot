@@ -2,7 +2,7 @@ package com.alga.algaspring.controller;
 
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
+import javax.validation.Valid;
 
 //import javax.persistence.EntityManager;
 //import javax.persistence.PersistenceContext;
@@ -44,12 +44,12 @@ public class ClientController {
     }
 
     @PostMapping(value = "/client")
-    public ClientModel create(@RequestBody ClientModel client) {
+    public ClientModel create(@Valid @RequestBody ClientModel client) {
         return clientRepository.save(client);
     }
 
     @PutMapping(value = "/client/{id}")
-    public ResponseEntity<ClientModel> update(@RequestBody ClientModel client, @PathVariable Long id) {
+    public ResponseEntity<ClientModel> update(@Valid @RequestBody ClientModel client, @PathVariable Long id) {
 
         if (clientRepository.existsById(id)) {
             client.setId(id);
